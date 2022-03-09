@@ -9,7 +9,6 @@ use std::thread;
 const MAX_PORT: u16 = 65535;
 
 struct Arguments {
-    flag: String,
     ipaddr: IpAddr,
     threads: u16,
 }
@@ -23,7 +22,7 @@ impl Arguments {
         }
         let f = args[1].clone();
         if let Ok(ipaddr) = IpAddr::from_str(&f) {
-            return Ok(Arguments {flag: String::from(""), ipaddr, threads: 4});
+            return Ok(Arguments {ipaddr, threads: 4});
         } else {
             let flag = args[1].clone();
             if flag.contains("-h") || flag.contains("-help") && args.len() == 2 {
@@ -41,7 +40,7 @@ impl Arguments {
                     Ok(threads) => threads,
                     Err(_) => return Err("Invalid Threads"),
                 };
-                return Ok(Arguments {flag, ipaddr, threads});
+                return Ok(Arguments {ipaddr, threads});
             } else {
                 return Err("Invalid Flag");
             }
